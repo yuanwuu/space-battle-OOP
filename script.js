@@ -41,12 +41,12 @@ accuracy: the chance between 0 and 1 that the ship will hit its target
 
 
 
+// const prompt = window.prompt(`what's your name?`)
 
-// Variables
-
-function accNum(min,max) {
-    return Math.random().toFixed(3)
+function accuracy() {
+    return Math.random().toFixed(1)
 }
+
 
 function alienAccNum(min,max) {
     return (Math.random()).toFixed(1)
@@ -72,6 +72,8 @@ class UssShip {
         if (Math.random() < alien[0].accuracy) {
             console.log('You have been hit!');
         } 
+        
+       
     }
 
     retreat () {
@@ -95,49 +97,49 @@ class AlienShip {
     }
 
     retreat () {
-        if (this.retreat === true) {
+        if (alien[i] === 0 ) {
             console.log('Game Over!')
         }
     }
 }
 
 
-
+const alien = new AlienShip(randomNum(3,6),randomNum(2,4),alienAccNum(.6,.8))
 const ussShip = new UssShip(20,5,.7)
-console.log(ussShip)
-
-const alienShip = new AlienShip(randomNum(3,6),randomNum(2,4),alienAccNum(.6,.8))
-console.log(alienShip)
 
 
+// console.log(ussShip.hull)
+// console.log(alien)
 
-// // uss attacks alien #1
-// const alienShpFty = [Alien] // alien ships in fty.
-// if (Alien.hull > 10){
-//     goodAttack();
-// } else if (Alien.hull >=4 ) {
-//     alienShpFty.forEach((ele => {
-//         // launch alien[i]
-//         console.log('youre still in the game')
-//     }))
-// } else {
-//     window.prompt(`game over`)
-// }
 
-// console.log(alienShpFty)
+
+
+// uss attacks alien #1
+
+if (alien.hull >= 4 ){
+    console.log(`Alien HP: ${alien.hull} < USS HP: ${ussShip.hull}, Order: attack USS`)
+} else if (alien.hull <= 3 ) {
+    console.log('USS HP: 3 or less, Message: youre still in the game')
+} else {
+    console.log(`game over`)
+}
+
 
 // alien attacks uss
-// if (uss.hp > alien.hp){
-//     attack alien
-// } else if (retreat === true ) {
-// } else {
-//     window.prompt(`game over`)
-// }
+if (ussShip.hull > alien.hull){
+    console.log(`USS HP: ${ussShip.hull} < Alien HP: ${alien.hull}, Order: attack Alien`)
+} else if (ussShip.hull === false) {
+    window.prompt(`${ussShip.hull} < ${alien.hull}: retreat?`)
+    // console.log('retreat?')
+} else {
+    console.log(`game over`)
+}
 
-// if (alien[i].hp <= 0 ){
-//     window.prompt(`USS saved the universe from alien's attack`)
+
+// if (alien.hull <= 0 ){
+//     window.alert(`USS saved the universe from alien's attack`)
 // } else {
-//     window.prompt(`USS, too young too naive. Dont bump into me in your next life`)
+//     window.alert(`USS, too young too naive. Dont bump into me in your next life`)
 // }
 
 
