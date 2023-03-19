@@ -70,7 +70,8 @@ function randomNum(min, max) { // Random num b/w 3 to 6
 
 
 class Ship {
-    constructor(hull,firepower,accuracy){
+    constructor(name,hull,firepower,accuracy){
+        this.name = name
         this.hull = hull
         this.firepower = firepower
         this.accuracy = accuracy
@@ -91,59 +92,87 @@ class Ship {
     }
 }
 
-
-
-
-
-// const newAlien = {
-//     hull: function randomNum(min, max) {
-//         return Math.floor(Math.random()*(max - min) + min)
-//     },
-//     firepower: function alienAccuracy (min, max) { 
-//         return Number(Math.random().toFixed(1));
-//     },
-//     accuracy: function alienAccuracy (min, max) { 
-//         return Number(Math.random().toFixed(1));
-//     },
-    
+// const aHull = (min, max) => {
+//     return Math.floor(Math.random() * (max - min) + min);  
 // }
 
+
+// const aFire = (min, max) => {
+//     return Math.floor(Math.random() * (max - min) + min);  
+// }
+
+// const aAcc = (min, max) => {
+//     return Number(Math.random().toFixed(1));
+// }
+
+
+class Alienships {
+    constructor(name){
+        this.name = name
+        this.ahull = Math.floor(Math.random() * 4) + 3
+        this.aFire = Math.floor(Math.random() * 3) + 2
+        this.aAcc = (Math.floor(Math.random() * 3) + 6) / 10
+    }
+}
+
+
+
 // param: hull,firepower,accuracy
-const alien = new Ship (randomNum(3,6),randomNum(2,4),alienAccuracy(.6,.8))
-const uss = new Ship (20,5,.7)
+// const alien = new Ship (randomNum(3,6),randomNum(2,4),alienAccuracy(.6,.8))
+// const alien = new Alienships ((3,6), (2,4), (.6,.8))
 
 
 
-// alien #1 attacks uss
-if (alienAccuracy(.6,.8) > uss.accuracy){
-    let alienNewHp = (alien.hull - uss.hull)* -1
-    let alienNewFp = (alien.firepower - uss.firepower)* -1
-    console.log(`Alien: USS have been hit! \n 
-    uss current hull: ${alienNewHp} \n 
-    uss current firepower: ${alienNewFp}`)
+let alienTeam = [];
+alienTeam.push((al1 = new Ship('AL #1')));
+alienTeam.push((al2 = new Ship('AL #2')));
+alienTeam.push((al3 = new Ship('AL #3')));
+alienTeam.push((al4 = new Ship('AL #4')));
+alienTeam.push((al5 = new Ship('AL #5')));
+alienTeam.push((al6 = new Ship('AL #6')));
+alienTeam.push((al7 = new Ship('AL #7')));
+// console.log(alienTeam)
+
+const alien = new Alienships(alienTeam[0])
+const uss = new Ship ('USS',20,5,.7)
+console.log (alien)
+console.log (uss)
+
+
+
+
+
+
+// // alien #1 attacks uss
+// if (alienAccuracy(.6,.8) > uss.accuracy){
+//     let alienNewHp = (alien.hull - uss.hull)* -1
+//     let alienNewFp = (alien.firepower - uss.firepower)* -1
+//     console.log(`Alien: USS have been hit! \n 
+//     uss current hull: ${alienNewHp} \n 
+//     uss current firepower: ${alienNewFp}`)
     
     
-} else {
-    console.log(`Alien #2 prepare! \n Alien Hull: ${alien.hull} \n Alien Firepower: ${alien.firepower}`)
-    // console.log(alien)
-}
+// } else {
+//     console.log(`Alien #2 prepare! \n Alien Hull: ${alien.hull} \n Alien Firepower: ${alien.firepower}`)
+//     // console.log(alien)
+// }
 
-// USS attacks Alien
-if (uss.accuracy > alienAccuracy(.6,.8)){
-    let ussNewHp = (uss.hull - alien.hull)
-    let ussNewFp = (uss.firepower - alien.firepower)
-    console.log(`USS: Alien#1 have been hit! \n 
-    alien current hull: ${ussNewHp} \n 
-    alien current firepower: ${ussNewFp}`)
+// // USS attacks Alien
+// if (uss.accuracy > alienAccuracy(.6,.8)){
+//     let ussNewHp = (uss.hull - alien.hull)
+//     let ussNewFp = (uss.firepower - alien.firepower)
+//     console.log(`USS: Alien#1 have been hit! \n 
+//     alien current hull: ${ussNewHp} \n 
+//     alien current firepower: ${ussNewFp}`)
    
    
-    // uss.hull - alien.hull
-    // uss.firepower - alien.firepower
-    // console.log(`USS: hit made! \n USS Hull: ${uss.hull} \n USS Firepower: ${uss.firepower}`)
-} else {
-    console.log(`USS Retreat! \n USS Hull: ${uss.hull} \n USS Firepower: ${uss.firepower}`)
-    // console.log(uss)
-}
+//     // uss.hull - alien.hull
+//     // uss.firepower - alien.firepower
+//     // console.log(`USS: hit made! \n USS Hull: ${uss.hull} \n USS Firepower: ${uss.firepower}`)
+// } else {
+//     console.log(`USS Retreat! \n USS Hull: ${uss.hull} \n USS Firepower: ${uss.firepower}`)
+//     // console.log(uss)
+// }
 
 
 
