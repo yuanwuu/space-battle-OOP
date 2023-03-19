@@ -42,8 +42,9 @@ accuracy: the chance between 0 and 1 that the ship will hit its target
 
 
 // < --------------- Window Prompt ------------------- > 
-// let guest = prompt (`Hey, how are you? \n wanna play a game? \n and your name is?`)
-// if (guest === null || guest === '') {
+
+// let guest = prompt (`Welcome to Hey, how are you? \n wanna play a game? \n and your name is?`)
+// if (guest === null) {
 //     txt = 'hi, no name';
 // } else {
 //     txt = `hello, ${guest}`
@@ -56,6 +57,7 @@ accuracy: the chance between 0 and 1 that the ship will hit its target
 // } else {
 //     alert (`open your console and start playing!`)
 // }
+
 // < --------------- Window Prompt ------------------- > 
 
 
@@ -83,10 +85,10 @@ const aAcc = (min, max) => {
     return Number(Math.random().toFixed(1));
 }
 
-
 const alien = new Ship (randomNum(3,6),randomNum(2,4),alienAccuracy(.6,.8))
 const alien = new Alienships ((3,6), (2,4), (.6,.8))
 */
+
 
 class Ship {
     constructor(name,hull,firepower,accuracy){
@@ -96,13 +98,13 @@ class Ship {
         this.accuracy = accuracy
     }
 
-    // toAttack (uss,alien) {
-    //     if (Math.random() < alien[0].accuracy) {
-    //         // this.hull: hp will be decrese if you got hit. 
-    //         console.log('You have been hit!');
-    //     }  
-       
-    // }
+    toAttack () {
+        if (Math.random() < alien[0].accuracy) {
+            // this.hull: hp will be decrese if you got hit. 
+            console.log('You have been hit!');
+        }   
+
+    }
 
     game () {
         if (hull === 0) {
@@ -118,31 +120,33 @@ class Alienships {
         this.aFire = Math.floor(Math.random() * 3) + 2 // Random num b/w 2 to 4
         this.aAcc = (Math.floor(Math.random() * 3) + 6) / 10 // Random num from .6 to .8
     }
+
 }
 
 
-let alienTeam = [];
-alienTeam.push((al1 = new Ship('Alien #1')));
-alienTeam.push((al2 = new Ship('Alien #2')));
-alienTeam.push((al3 = new Ship('Alien #3')));
-alienTeam.push((al4 = new Ship('Alien #4')));
-alienTeam.push((al5 = new Ship('Alien #5')));
-alienTeam.push((al6 = new Ship('Alien #6')));
-alienTeam.push((al7 = new Ship('Alien #7')));
+let alienFleet = [];
+alienFleet.push((al1 = new Ship('Alien #1')));
+alienFleet.push((al2 = new Ship('Alien #2')));
+alienFleet.push((al3 = new Ship('Alien #3')));
+alienFleet.push((al4 = new Ship('Alien #4')));
+alienFleet.push((al5 = new Ship('Alien #5')));
+alienFleet.push((al6 = new Ship('Alien #6')));
+alienFleet.push((al7 = new Ship('Alien #7')));
 // console.log(alienTeam)
 
-const alien = new Alienships(alienTeam[0])
+
+
+const alien = new Alienships(alienFleet[0])
 const uss = new Ship ('USS',20,5,.7)
-// console.log (alien)
-// console.log (uss)
+
 
 
 
 // < ---------------Alien attacks USS------------------- > 
 
 if (alien.aAcc > uss.accuracy){
-    let alienNewHp = (alien.aHull - uss.hull)* -1
-    let alienNewFp = (alien.aFire - uss.firepower)* -1
+    let alienNewHp = (alien.aHull - uss.hull) * -1
+    let alienNewFp = (alien.aFire - uss.firepower) * -1
     console.log(`Alien: USS have been hit! \n 
     uss current hull: ${alienNewHp} \n 
     uss current firepower: ${alienNewFp}`)
