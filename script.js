@@ -39,108 +39,136 @@ firepower: the amount of damage done to the hull of the target with a successful
 accuracy: the chance between 0 and 1 that the ship will hit its target
 */
 
+//window prompt to start <-- done!
+
+// let guest = prompt (`Hey, how are you? \n wanna play a game? \n and your name is?`)
+// if (guest === null || guest === '') {
+//     txt = 'hi, no name';
+// } else {
+//     txt = `hello, ${guest}`
+// }
+// alert(txt);
+
+// const toPlay = confirm ('launch attack?')
+// if (toPlay === null || toPlay === '') {
+//     alert (`Have an awful day. :D`);
+// } else {
+//     alert (`open your console and start playing!`)
+// }
+// <-- window prompt Done!
 
 
-// const prompt = window.prompt(`what's your name?`)
 
-function accuracy() {
-    return Math.random().toFixed(1)
+const alienAccuracy = (min, max) => { // alien ship accuracy num
+    return Number(Math.random().toFixed(1));
 }
 
 
-function alienAccNum(min,max) {
-    return (Math.random()).toFixed(1)
-}
-
-function randomNum(min, max) {
+function randomNum(min, max) { // Random num b/w 3 to 6
     return Math.floor(Math.random() * (max - min) + min);
 }
-// console.log("Random num b/w 3 to 6")
-  
-// Function call
-//console.log( randomNumber(3, 6) );
 
 
-class UssShip {
+class Ship {
     constructor(hull,firepower,accuracy){
         this.hull = hull
         this.firepower = firepower
         this.accuracy = accuracy
     }
 
-    attack () {
-        if (Math.random() < alien[0].accuracy) {
-            console.log('You have been hit!');
-        } 
-        
+    // toAttack (uss,alien) {
+    //     if (Math.random() < alien[0].accuracy) {
+    //         // this.hull: hp will be decrese if you got hit. 
+    //         console.log('You have been hit!');
+    //     }  
        
-    }
+    // }
 
-    retreat () {
-        if (this.retreat === true) {
-            console.log('Game Over!')
-        }
-    }
-}
-
-class AlienShip {
-    constructor(hull,firepower,accuracy){
-        this.hull = hull
-        this.firepower = firepower
-        this.accuracy = accuracy
-    }
-
-    attack () {
-        if (Math.random() < UssShip.accuracy) {
-            console.log('You have been hit!');
-        } 
-    }
-
-    retreat () {
-        if (alien[i] === 0 ) {
-            console.log('Game Over!')
+    game () {
+        if (hull === 0) {
+            window.alert('Game Over!')
         }
     }
 }
 
 
-const alien = new AlienShip(randomNum(3,6),randomNum(2,4),alienAccNum(.6,.8))
-const ussShip = new UssShip(20,5,.7)
-
-
-// console.log(ussShip.hull)
-// console.log(alien)
 
 
 
+// const newAlien = {
+//     hull: function randomNum(min, max) {
+//         return Math.floor(Math.random()*(max - min) + min)
+//     },
+//     firepower: function alienAccuracy (min, max) { 
+//         return Number(Math.random().toFixed(1));
+//     },
+//     accuracy: function alienAccuracy (min, max) { 
+//         return Number(Math.random().toFixed(1));
+//     },
+    
+// }
 
-// uss attacks alien #1
+// param: hull,firepower,accuracy
+const alien = new Ship (randomNum(3,6),randomNum(2,4),alienAccuracy(.6,.8))
+const uss = new Ship (20,5,.7)
 
-if (alien.hull >= 4 ){
-    console.log(`Alien HP: ${alien.hull} < USS HP: ${ussShip.hull}, Order: attack USS`)
-} else if (alien.hull <= 3 ) {
-    console.log('USS HP: 3 or less, Message: youre still in the game')
+
+
+// alien #1 attacks uss
+if (alienAccuracy(.6,.8) > uss.accuracy){
+    let alienNewHp = (alien.hull - uss.hull)* -1
+    let alienNewFp = (alien.firepower - uss.firepower)* -1
+    console.log(`Alien: USS have been hit! \n 
+    uss current hull: ${alienNewHp} \n 
+    uss current firepower: ${alienNewFp}`)
+    
+    
 } else {
-    console.log(`game over`)
+    console.log(`Alien #2 prepare! \n Alien Hull: ${alien.hull} \n Alien Firepower: ${alien.firepower}`)
+    // console.log(alien)
+}
+
+// USS attacks Alien
+if (uss.accuracy > alienAccuracy(.6,.8)){
+    let ussNewHp = (uss.hull - alien.hull)
+    let ussNewFp = (uss.firepower - alien.firepower)
+    console.log(`USS: Alien#1 have been hit! \n 
+    alien current hull: ${ussNewHp} \n 
+    alien current firepower: ${ussNewFp}`)
+   
+   
+    // uss.hull - alien.hull
+    // uss.firepower - alien.firepower
+    // console.log(`USS: hit made! \n USS Hull: ${uss.hull} \n USS Firepower: ${uss.firepower}`)
+} else {
+    console.log(`USS Retreat! \n USS Hull: ${uss.hull} \n USS Firepower: ${uss.firepower}`)
+    // console.log(uss)
 }
 
 
-// alien attacks uss
-if (ussShip.hull > alien.hull){
-    console.log(`USS HP: ${ussShip.hull} < Alien HP: ${alien.hull}, Order: attack Alien`)
-} else if (ussShip.hull === false) {
-    window.prompt(`${ussShip.hull} < ${alien.hull}: retreat?`)
-    // console.log('retreat?')
-} else {
-    console.log(`game over`)
-}
+
+
+
+// // uss attacks alien #1
+// if (uss.hull > alien.hull){
+//     console.log(`USS HP: ${uss.hull} v. Alien HP: ${alien.hull}, Order: attack Alien`)
+// } else if (uss.hull === 0) {
+//     console.log(`${uss.hull} < ${alien.hull}: retreat?`)
+// } else {
+//     console.log(`Game Over`)
+// }
 
 
 // if (alien.hull <= 0 ){
 //     window.alert(`USS saved the universe from alien's attack`)
 // } else {
-//     window.alert(`USS, too young too naive. Dont bump into me in your next life`)
+//     window.alert(`USS, too young too naive. Dont run into me in your next life`)
 // }
 
 
 
+
+
+// if alien attacks uss w fp = 4, then uss hp -4
+// console.log(alien.accuracy) // <-- this works bc alien.hull was declared in line 124
+// console.log(alien.hull) // <-- this works bc .accuracy was declared in line 124
