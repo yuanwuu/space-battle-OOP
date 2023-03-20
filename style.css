@@ -5,8 +5,23 @@
 
 body {
     font-family: 'Courier New', Courier, monospace;
-    margin: 0 auto;
+    display: block;
+    flex-direction: row;
+    text-align: center;
+    /* background-image: url(https://miro.medium.com/v2/resize:fit:1200/0*2ggUuUKOOiEHh7GS.jpg);
+    background-repeat: no-repeat;
+    background: stretch; */
     
+}
+
+h1 {
+    padding: 100px;
+    align-content: center;
+    justify-content: center;
+}
+
+p {
+    line-height: 1.75rem;
 }
 
 /* button {
