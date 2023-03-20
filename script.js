@@ -43,20 +43,20 @@ accuracy: the chance between 0 and 1 that the ship will hit its target
 
 // < --------------- Window Prompt ------------------- > 
 
-// let guest = prompt (`Welcome to Hey, how are you? \n wanna play a game? \n and your name is?`)
-// if (guest === null) {
-//     txt = 'hi, no name';
-// } else {
-//     txt = `hello, ${guest}`
-// }
-// alert(txt);
+const guest = prompt (`HELP! SOS! \n wanna save the Universe from Aliens? \n (  Please type your name:  )`)
+if (guest === true) {
+    txt = `hello, hello ${guest}`
+} else {
+    txt = `hello,${guest}`
+}
+alert(txt);
 
-// const toPlay = confirm ('launch attack?')
-// if (toPlay === null || toPlay === '') {
-//     alert (`Have an awful day. :D`);
-// } else {
-//     alert (`open your console and start playing!`)
-// }
+const toPlay = confirm ('wanna launch an attack?')
+if (toPlay === true) {
+    alert (`Open your console and watch the battle!`);
+} else {
+    alert (`Have an awful day. :D`)
+}
 
 // < --------------- Window Prompt ------------------- > 
 
@@ -102,16 +102,24 @@ class Ship {
         if (Math.random() < this.accuracy) { // this refers to USS ship
             // this.hull: hp will be decrese if you got hit. 
             alien.aHull -= this.firepower // USS is attacking Alien! 
-            console.log('USS: Alien, you have been hit!');
+            // console.log('USS: Alien, you have been hit!');
         }   
 
     }
 
-    // game () {
-    //     if (hull === 0) {
-    //         window.alert('Game Over!')
-    //     }
-    // }
+    retreat () {
+        // if (hull === 0) {
+        //     window.alert('Game Over!')
+        // }
+       
+        let response = confirm(`TEAM USS, Attack or Retreat`);
+        if (response === true) {
+            uss.toAttack();
+        } else {
+            uss.retreat();
+        }
+    
+    }
 }
 
 class Alienships {
@@ -126,26 +134,31 @@ class Alienships {
         if (Math.random() < uss.hull) { // this refers to Alien ship
             // this.hull: hp will be decrese if you got hit. 
             uss.hull -= this.firepower // Alien attacks USS.
-            console.log('Alien: USS, you have been hit!');
+            // console.log('Alien: USS, you have been hit!');
         }   
 
-        // if (uss.accuracy < alien[i].aAcc) {
-        //     console.log('You have been hit!');
-        // }
-
+    }
+    retreat () {
+        let response = confirm(`TEAM Alien, Attack or Retreat`);
+        if (response === true) {
+            alien.toAttack();
+        } else {
+            alien.retreat();
+        }
+    
     }
 
 }
 
 let alienFleet = [];
-alienFleet.push((al1 = new Ship('Alien # 1')));
-alienFleet.push((al2 = new Ship('Alien # 2')));
-alienFleet.push((al3 = new Ship('Alien # 3')));
-alienFleet.push((al4 = new Ship('Alien # 4')));
-alienFleet.push((al5 = new Ship('Alien # 5')));
-alienFleet.push((al6 = new Ship('Alien # 6')));
-alienFleet.push((al7 = new Ship('Alien # 7')));
-// console.log(alienTeam)
+alienFleet.push((al1 = new Alienships('Alien # 1')));
+alienFleet.push((al2 = new Alienships('Alien # 2')));
+alienFleet.push((al3 = new Alienships('Alien # 3')));
+alienFleet.push((al4 = new Alienships('Alien # 4')));
+alienFleet.push((al5 = new Alienships('Alien # 5')));
+alienFleet.push((al6 = new Alienships('Alien # 6')));
+alienFleet.push((al7 = new Alienships('Alien # 7')));
+// console.log(alienFleet)
 
 
 const alien = new Alienships(alienFleet[0])
@@ -157,69 +170,84 @@ const uss = new Ship ('USS',20,5,.7)
 
 for (ship of alienFleet) {
     while (uss.hull >= 0 && alien.aHull >= 0) { //the exit condition
-        uss.toAttack(ship) // single attack from USS to Alien, ship refers to ship inside the Alien Fleet
+        uss.toAttack(ship)  
         alien.toAttack(uss) 
     }
 
     if (uss.hull <= 0){
-        break; // still inside the for looop (line 150), but exit this if loop
+        break; // still inside the for looop , but exit this if loop
     } else {
-        confirm(`stay or retreat?`)
-        if (prompt === null){ //not retreat: keep fighting
+        toAttack = confirm(`TEAM USS, attack(ok) or retreat(canel)?`)
+        if (toAttack === true){ //not retreat: keep fighting
+            uss.toAttack(alienFleet[0])
             //leave it empty, bc you choose to stay in the game
         } else {// option to retreat, if decided to retreat, break to exit the for loop
+            console.log(`TEAM USS is out for commerical break!`)
             break; // retreat, USS is out
         }
         //
     }
 
+    if (alien.aAcc > uss.accuracy){
+            // let alienNewHp = (alien.aHull - uss.hull) * -1
+            // let alienNewFp = (alien.aFire - uss.firepower) * -1
+            console.log(`Alien: USS, you have been hit!`) 
+            // console.log(`uss current hull: ${alienNewHp} `) 
+            // console.log(`uss current firepower: ${alienNewFp}`)
+            
+        } else {
+            console.log(`USS: Alien, you have been hit!`)
+            // console.log(`${ship} Hull: ${alien.aHull}`) 
+            // console.log(`${ship} Firepower: ${alien.aFire}`)
+            
+        }
+
     if (ship.aHull <= 0){ // alien
-        // console.log('Alien #2 is ready to battle!')
-        console.log(`${ship} is ready to battle!`)
+        console.log(`TEAM Alien, get ready to battle!`)
     }
     
 }
 
 
-const attBtn = document.getElementById('')
+// const attBtn = document.getElementById('.attack')
+// attBtn.addEventListener('click', (e) => {
+//     uss.toAttack()
+// })
 
 // < ---------------Alien attacks USS------------------- > 
 
-if (alien.aAcc > uss.accuracy){
-    let alienNewHp = (alien.aHull - uss.hull) * -1
-    let alienNewFp = (alien.aFire - uss.firepower) * -1
-    console.log(`Alien: USS you have been hit! \n 
-    uss current hull: ${alienNewHp} \n 
-    uss current firepower: ${alienNewFp}`)
+// if (alien.aAcc > uss.accuracy){
+//     let alienNewHp = (alien.aHull - uss.hull) * -1
+//     let alienNewFp = (alien.aFire - uss.firepower) * -1
+//     console.log(`Alien: USS you have been hit! \n 
+//     uss current hull: ${alienNewHp} \n 
+//     uss current firepower: ${alienNewFp}`)
     
-} else {
-    console.log(`Alien prepare! \n 
-    Alien Hull: ${alien.aHull} \n 
-    Alien Firepower: ${alien.aFire}`)
-    // console.log(alien)
-}
+// } else {
+//     console.log(`Alien prepare! \n 
+//     Alien Hull: ${alien.aHull} \n 
+//     Alien Firepower: ${alien.aFire}`)
+//     // console.log(alien)
+// }
 
 
 // < ---------------USS attacks Alien------------------- > 
 
-if (uss.accuracy > alien.aAcc){
-    let ussNewHp = (uss.hull - alien.aHull)
-    let ussNewFp = (uss.firepower - alien.aFire)
-    console.log(`USS: Alien you have been hit! \n 
-    alien current hull: ${ussNewHp} \n 
-    alien current firepower: ${ussNewFp}`)
-    // uss.hull - alien.hull
-    // uss.firepower - alien.firepower
-    // console.log(`USS: hit made! \n USS Hull: ${uss.hull} \n USS Firepower: ${uss.firepower}`)
-} else {
-    console.log(`USS Retreat! \n 
-    USS Hull: ${uss.hull} \n 
-    USS Firepower: ${uss.firepower}`)
-    // console.log(uss)
-}
-
-
-
+// if (uss.accuracy > alien.aAcc){
+//     let ussNewHp = (uss.hull - alien.aHull)
+//     let ussNewFp = (uss.firepower - alien.aFire)
+//     console.log(`USS: Alien you have been hit! \n 
+//     alien current hull: ${ussNewHp} \n 
+//     alien current firepower: ${ussNewFp}`)
+//     // uss.hull - alien.hull
+//     // uss.firepower - alien.firepower
+//     // console.log(`USS: hit made! \n USS Hull: ${uss.hull} \n USS Firepower: ${uss.firepower}`)
+// } else {
+//     console.log(`USS Retreat! \n 
+//     USS Hull: ${uss.hull} \n 
+//     USS Firepower: ${uss.firepower}`)
+//     // console.log(uss)
+// }
 
 
 // // uss attacks alien #1
@@ -233,9 +261,9 @@ if (uss.accuracy > alien.aAcc){
 
 
 // if (alien.aHull <= 0 ){
-//     window.alert(`USS saved the universe from alien's attack`)
+//     window.alert(`USS you saved the universe from alien's attack`)
 // } else {
-//     window.alert(`USS, too young too naive. Dont run into me in your next life`)
+//     window.alert(`USS, Dont run into me in your next life`)
 // }
 
 
