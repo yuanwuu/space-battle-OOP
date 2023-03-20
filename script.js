@@ -56,6 +56,7 @@ if (toPlay === true) {
     alert (`Open your console and watch the battle!`);
 } else {
     alert (`Have an awful day. :D`)
+    alert (`Friendly Remainder: refresh the page to restart ;)`)
 }
 
 // < --------------- Window Prompt ------------------- > 
