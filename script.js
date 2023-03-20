@@ -98,61 +98,102 @@ class Ship {
         this.accuracy = accuracy
     }
 
-    toAttack () {
-        if (Math.random() < alien[0].accuracy) {
+    toAttack (alien) {
+        if (Math.random() < this.accuracy) { // this refers to USS ship
             // this.hull: hp will be decrese if you got hit. 
-            console.log('You have been hit!');
+            alien.aHull -= this.firepower // USS is attacking Alien! 
+            console.log('USS: Alien, you have been hit!');
         }   
 
     }
 
-    game () {
-        if (hull === 0) {
-            window.alert('Game Over!')
-        }
-    }
+    // game () {
+    //     if (hull === 0) {
+    //         window.alert('Game Over!')
+    //     }
+    // }
 }
 
 class Alienships {
     constructor(name){
         this.name = name
-        this.aHull = Math.floor(Math.random() * 4) + 3 // Random num b/w 3 to 6
-        this.aFire = Math.floor(Math.random() * 3) + 2 // Random num b/w 2 to 4
+        this.aHull = Math.floor(Math.random() * 4) + 3 // Random num from 3 to 6
+        this.aFire = Math.floor(Math.random() * 3) + 2 // Random num from 2 to 4
         this.aAcc = (Math.floor(Math.random() * 3) + 6) / 10 // Random num from .6 to .8
+    }
+
+    toAttack (uss) {
+        if (Math.random() < uss.hull) { // this refers to Alien ship
+            // this.hull: hp will be decrese if you got hit. 
+            uss.hull -= this.firepower // Alien attacks USS.
+            console.log('Alien: USS, you have been hit!');
+        }   
+
+        // if (uss.accuracy < alien[i].aAcc) {
+        //     console.log('You have been hit!');
+        // }
+
     }
 
 }
 
-
 let alienFleet = [];
-alienFleet.push((al1 = new Ship('Alien #1')));
-alienFleet.push((al2 = new Ship('Alien #2')));
-alienFleet.push((al3 = new Ship('Alien #3')));
-alienFleet.push((al4 = new Ship('Alien #4')));
-alienFleet.push((al5 = new Ship('Alien #5')));
-alienFleet.push((al6 = new Ship('Alien #6')));
-alienFleet.push((al7 = new Ship('Alien #7')));
+alienFleet.push((al1 = new Ship('Alien # 1')));
+alienFleet.push((al2 = new Ship('Alien # 2')));
+alienFleet.push((al3 = new Ship('Alien # 3')));
+alienFleet.push((al4 = new Ship('Alien # 4')));
+alienFleet.push((al5 = new Ship('Alien # 5')));
+alienFleet.push((al6 = new Ship('Alien # 6')));
+alienFleet.push((al7 = new Ship('Alien # 7')));
 // console.log(alienTeam)
-
 
 
 const alien = new Alienships(alienFleet[0])
 const uss = new Ship ('USS',20,5,.7)
 
+// uss.toAttack(alienFleet[0]) // single attack from USS to Alien
+// alien.toAttack(uss) // 
 
 
+for (ship of alienFleet) {
+    while (uss.hull >= 0 && alien.aHull >= 0) { //the exit condition
+        uss.toAttack(ship) // single attack from USS to Alien, ship refers to ship inside the Alien Fleet
+        alien.toAttack(uss) 
+    }
+
+    if (uss.hull <= 0){
+        break; // still inside the for looop (line 150), but exit this if loop
+    } else {
+        confirm(`stay or retreat?`)
+        if (prompt === null){ //not retreat: keep fighting
+            //leave it empty, bc you choose to stay in the game
+        } else {// option to retreat, if decided to retreat, break to exit the for loop
+            break; // retreat, USS is out
+        }
+        //
+    }
+
+    if (ship.aHull <= 0){ // alien
+        // console.log('Alien #2 is ready to battle!')
+        console.log(`${ship} is ready to battle!`)
+    }
+    
+}
+
+
+const attBtn = document.getElementById('')
 
 // < ---------------Alien attacks USS------------------- > 
 
 if (alien.aAcc > uss.accuracy){
     let alienNewHp = (alien.aHull - uss.hull) * -1
     let alienNewFp = (alien.aFire - uss.firepower) * -1
-    console.log(`Alien: USS have been hit! \n 
+    console.log(`Alien: USS you have been hit! \n 
     uss current hull: ${alienNewHp} \n 
     uss current firepower: ${alienNewFp}`)
     
 } else {
-    console.log(`Alien #2 prepare! \n 
+    console.log(`Alien prepare! \n 
     Alien Hull: ${alien.aHull} \n 
     Alien Firepower: ${alien.aFire}`)
     // console.log(alien)
@@ -164,14 +205,16 @@ if (alien.aAcc > uss.accuracy){
 if (uss.accuracy > alien.aAcc){
     let ussNewHp = (uss.hull - alien.aHull)
     let ussNewFp = (uss.firepower - alien.aFire)
-    console.log(`USS: Alien#1 have been hit! \n 
+    console.log(`USS: Alien you have been hit! \n 
     alien current hull: ${ussNewHp} \n 
     alien current firepower: ${ussNewFp}`)
     // uss.hull - alien.hull
     // uss.firepower - alien.firepower
     // console.log(`USS: hit made! \n USS Hull: ${uss.hull} \n USS Firepower: ${uss.firepower}`)
 } else {
-    console.log(`USS Retreat! \n USS Hull: ${uss.hull} \n USS Firepower: ${uss.firepower}`)
+    console.log(`USS Retreat! \n 
+    USS Hull: ${uss.hull} \n 
+    USS Firepower: ${uss.firepower}`)
     // console.log(uss)
 }
 
